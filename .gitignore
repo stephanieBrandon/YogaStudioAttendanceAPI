@@ -1,0 +1,19 @@
+# Build output
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Rider / VS Code
+.idea/
+.vscode/
+
+# Secrets — don't commit connection strings!
+appsettings.json
+appsettings.Development.json
+
+# Logs
+*.log
