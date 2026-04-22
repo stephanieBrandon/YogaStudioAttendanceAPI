@@ -17,7 +17,7 @@ namespace YogaStudioAttendanceAPI.Models
         public int EmployeeId { get; set; }
 
         [Required]
-        [Column("DATE")]
+        [Column("ATTENDANCE_DATE")]
         public DateTime Date { get; set; }
 
         [Column("CLOCK_IN")]

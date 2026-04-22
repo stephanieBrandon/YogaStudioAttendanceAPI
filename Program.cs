@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using YogaStudioAttendanceAPI.Data;
-
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -12,9 +12,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//oracle service
+// postgres service
 builder.Services.AddDbContext<AttendanceDbContext>(options =>
-    options.UseOracle(builder.Configuration.GetConnectionString("OracleConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection")));
 
 //JWT validation - validate tokens issued by the Yoga studio app
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
