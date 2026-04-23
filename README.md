@@ -1,10 +1,20 @@
-- Separate ASP.NET Core Web API in the same Visual Studio solution
-- Handles clock in and clock out only
-- JWT Bearer authentication — validates tokens issued by main app on login
-- Shares the same Oracle database — no migrations run from this project
-- CORS configured to allow requests from main MVC app only
-- Both projects must run simultaneously for clock in/out to work
+# Yoga Studio Attendance API — Deployment Fork
 
-Port configuration (based on launchSettings.json):
-Main MVC app: https://localhost:7209 / http://localhost:5130
-AttendanceAPI: https://localhost:7219 / http://localhost:5225
+This is a fork of [n01570640/YogaStudioAttendanceAPI](https://github.com/n01570640/YogaStudioAttendanceAPI) configured for cloud deployment on Render.
+
+## Live Demo
+
+**Deployed API URL:** https://yogastudioattendanceapi.onrender.com
+
+Called by the deployed main app for clock in / clock out endpoints.
+
+## How this fork differs from the original
+
+- Migrated from Oracle → PostgreSQL
+- Added Dockerfile for container deployment
+- Added deployed main app URL to CORS allowed origins
+- Clock in / out timestamps stored as UTC (display layer converts to Eastern)
+
+## For the original project setup
+
+See the [original repository](https://github.com/n01570640/YogaStudioAttendanceAPI) — this fork is not intended for local development.
