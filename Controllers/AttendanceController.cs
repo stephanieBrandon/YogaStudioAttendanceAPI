@@ -51,7 +51,7 @@ namespace YogaStudioAttendanceAPI.Controllers
                 }
 
                 //record exists but no clock in yet - update it
-                existing.ClockIn = DateHelper.Now;
+                existing.ClockIn = DateTime.UtcNow;
                 existing.Status = AttendanceStatus.PRESENT;
             }
             else
@@ -61,7 +61,7 @@ namespace YogaStudioAttendanceAPI.Controllers
                 {
                     EmployeeId = employeeId.Value,
                     Date = today,
-                    ClockIn = DateHelper.Now,
+                    ClockIn = DateTime.UtcNow,
                     Status = AttendanceStatus.PRESENT
                 };
 
@@ -95,7 +95,7 @@ namespace YogaStudioAttendanceAPI.Controllers
             if (existing.ClockOut != null)
                 return BadRequest("You have already clocked out today.");
 
-            existing.ClockOut = DateHelper.Now;
+            existing.ClockOut = DateTime.UtcNow;
 
             //calculate total hours between clock in and clock out
             existing.TotalHours = Math.Round(
