@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using YogaStudioAttendanceAPI.Constants;
 using YogaStudioAttendanceAPI.Data;
 using YogaStudioAttendanceAPI.Models;
+using YogaStudioAttendanceAPI.Helpers;
 
 namespace YogaStudioAttendanceAPI.Controllers
 {
@@ -29,7 +30,7 @@ namespace YogaStudioAttendanceAPI.Controllers
                 return Unauthorized("Invalid token.");
             }
 
-            var today = DateTime.Today;
+            var today = DateHelper.Today;
 
             //check if record already exists for today
             var existing = await _context.Attendances
@@ -50,7 +51,7 @@ namespace YogaStudioAttendanceAPI.Controllers
                 }
 
                 //record exists but no clock in yet - update it
-                existing.ClockIn = DateTime.Now;
+                existing.ClockIn = DateHelper.Now;
                 existing.Status = AttendanceStatus.PRESENT;
             }
             else
@@ -60,7 +61,7 @@ namespace YogaStudioAttendanceAPI.Controllers
                 {
                     EmployeeId = employeeId.Value,
                     Date = today,
-                    ClockIn = DateTime.Now,
+                    ClockIn = DateHelper.Now,
                     Status = AttendanceStatus.PRESENT
                 };
 
@@ -79,7 +80,7 @@ namespace YogaStudioAttendanceAPI.Controllers
                 return Unauthorized("Invalid token.");
             }
 
-            var today = DateTime.Today;
+            var today = DateHelper.Today;
 
             var existing = await _context.Attendances
                 .FirstOrDefaultAsync(a => a.EmployeeId == employeeId && a.Date == today);
@@ -94,7 +95,7 @@ namespace YogaStudioAttendanceAPI.Controllers
             if (existing.ClockOut != null)
                 return BadRequest("You have already clocked out today.");
 
-            existing.ClockOut = DateTime.Now;
+            existing.ClockOut = DateHelper.Now;
 
             //calculate total hours between clock in and clock out
             existing.TotalHours = Math.Round(
