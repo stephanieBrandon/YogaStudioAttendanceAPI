@@ -37,7 +37,10 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins(
             "https://localhost:7209",
-            "http://localhost:5130").AllowAnyMethod().AllowAnyHeader();  //Yoga Studio MVC app https and http
+            "http://localhost:5130",
+             "https://yogastudiolramanagementsystem-main.onrender.com"
+            ).AllowAnyMethod().AllowAnyHeader();  //Yoga Studio MVC app https and http
+            
     });
 });
 
